@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Medical Shop User Details</title>
+  </head>
+
+  <body>
+    <div class="container mt-3">
+      <table class="table table-dark">
+        <thead>
+          <th>S.no</th>
+          <th>Username</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Items</th>
+          <th>Drone Status</th>
+        </thead>
+        <tbody id="tbody1"></tbody>
+      </table>
+    </div>
+  </body>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+  <!-- <script src="main.js"></script> -->
+  <script>
+    var customerNo = 0;
+    var tbody = document.getElementById("tbody1");
+    function addItemToTable(Username, phoneNumber, Email, Items, dronestatus) {
+      let trow = document.createElement("tr");
+      let td1 = document.createElement("td");
+      let td2 = document.createElement("td");
+      let td3 = document.createElement("td");
+      let td4 = document.createElement("td");
+      let td5 = document.createElement("td");
+
+      let td6 = document.createElement("td");
+
+      td1.innerHTML = ++customerNo;
+      td2.innerHTML = Username;
+      td3.innerHTML = phoneNumber;
+      td4.innerHTML = Email;
+      td5.innerHTML = Items;
+      td6.innerHTML = dronestatus;
+
+      // td6.innerHTML = `<button type="button" onclick = "confirmTakeoff()">Confirm to takeoff</button>`;
+
+      trow.appendChild(td1);
+      trow.appendChild(td2);
+      trow.appendChild(td3);
+      trow.appendChild(td4);
+      trow.appendChild(td5);
+
+      trow.appendChild(td6);
+
+      tbody.appendChild(trow);
+    }
+
+    // function items(item_array) {
+    //   let txt = "";
+    //   item_array.forEach(myFunction);
+    //   td5.innerHTML = txt;
+
+    //   function myFunction(value, index, array) {
+    //     txt += value + "<br>";
+    //   }
+    // }
+
+    // function confirmTakeoff() {
+    //   console.log();
+    // }
+
+    function AddAllItemsToTable(TheCustomers) {
+      customerNo = 0;
+      tbody.innerHTML = "";
+
+      for (const key in TheCustomers) {
+        if (TheCustomers.hasOwnProperty(key)) {
+          let item_array = TheCustomers[key].orderDetails.items;
+          //   console.log(TheCustomers[key].orderDetails.items);
+
+          const map_item_array = item_array.map(item_func);
+
+          function item_func(value) {
+            console.log(`${value.medicine} = ${value.quantity}`);
+            return `${value.medicine} = ${value.quantity}`;
+          }
+
+          console.log(map_item_array);
+
+          let item_string = "";
+
+          for (let item of map_item_array) {
+            item_string = item_string + "\n" + item;
+          }
+
+          console.log();
+
+          addItemToTable(
+            TheCustomers[key].userDetails.username,
+            TheCustomers[key].userDetails.phone,
+            TheCustomers[key].userDetails.email,
+            item_string,
+            TheCustomers[key].dronestatus
+
+            // TheCustomers[key].orderDetails.items.0.medicine
+          );
+        }
+      }
+    }
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBCpW4tsg3QwJLdo_rAEBh5WsSgdKkGDys",
+      authDomain: "sample-a028e.firebaseapp.com",
+      databaseURL: "https://sample-a028e-default-rtdb.firebaseio.com",
+      projectId: "sample-a028e",
+      storageBucket: "sample-a028e.appspot.com",
+      messagingSenderId: "1026622472453",
+      appId: "1:1026622472453:web:955159f18b1936d5faf76c",
+      measurementId: "G-DQ9LD03K0Y",
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Set database variable
+    var database = firebase.database();
+
+    let get_info = database.ref("/");
+    get_info.on("value", function (snapshot) {
+      let data = snapshot.val();
+      AddAllItemsToTable(data);
+    });
+  </script>
+</html>

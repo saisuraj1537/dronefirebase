@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Send SMS</title>
+  </head>
+  <body>
+    <h1>Send SMS</h1>
+    <form id="smsForm">
+      <label for="phoneNumber">Phone Number:</label>
+      <input
+        type="tel"
+        id="phoneNumber"
+        placeholder="Enter phone number"
+        required
+      />
+      <br />
+      <label for="message">Message:</label>
+      <textarea
+        id="message"
+        placeholder="Enter your message"
+        required
+      ></textarea>
+      <br />
+      <button type="button" onclick="sendSMS()">Send SMS</button>
+    </form>
+
+    <script>
+      function sendSMS() {
+        const phoneNumber = document.getElementById("phoneNumber").value;
+        const message = document.getElementById("message").value;
+
+        // Replace ACCOUNT_SID, AUTH_TOKEN, and TWILIO_PHONE_NUMBER with your Twilio credentials
+        const accountSid = "AC4197291c2f9ffb282e6ec15b4cfb2ba4";
+        const authToken = "ec720415dd727d849613a7d81071905c";
+        const twilioPhoneNumber = "+19145065961";
+
+        // Twilio SMS API endpoint
+        const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
+
+        const data = new URLSearchParams();
+        data.append("To", phoneNumber);
+        data.append("From", twilioPhoneNumber);
+        data.append("Body", message);
+
+        fetch(url, {
+          method: "POST",
+          headers: {
+            Authorization: "Basic " + btoa(`${accountSid}:${authToken}`),
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: data,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Message sent successfully:", data);
+            alert("Message sent successfully!");
+          })
+          .catch((error) => {
+            console.error("Error sending message:", error);
+            alert("Error sending message. Please try again.");
+          });
+      }
+    </script>
+  </body>
+</html>

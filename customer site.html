@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medicine Drone Services</title>
+    <!-- Bootstrap CSS and other scripts -->
+    <!-- ... -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      /* Your existing styles remain here */
+
+      /* Media query for smaller screens */
+      @media (max-width: 768px) {
+        .user-form,
+        .medical-shop,
+        .medicine {
+          width: 100%;
+          margin: 10px 0;
+        }
+
+        .shop-button,
+        .form-button,
+        button {
+          width: 100%;
+        }
+      }
+
+      .bg-container {
+        background-image: url("https://res.cloudinary.com/dysg1afiz/image/upload/v1701883405/91866854_zf4rxh.jpg");
+        height: 100vh;
+        background-size: cover;
+      }
+
+      .tourism-card {
+        text-align: center;
+        background-color: white;
+        padding: 5px;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+      }
+
+      .main-heading {
+        font-family: "Roboto";
+      }
+
+      .paragraph {
+        font-family: "Roboto";
+      }
+
+      .button {
+        color: white;
+        background-color: #25b1cc;
+        width: 138px;
+        height: 36px;
+        border-width: 0px;
+        border-radius: 20px;
+      }
+      .section-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 800px;
+        margin: 20px auto;
+      }
+
+      .medical-shop {
+        background-color: #fff;
+        padding: 20px;
+        margin: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        flex: 1 1 calc(33.33% - 20px);
+      }
+
+      .shop-title {
+        color: #4caf50;
+      }
+
+      .shop-button {
+        padding: 12px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .shop-button:hover {
+        background-color: #45a049;
+      }
+
+      .form-container {
+        display: block;
+        margin-bottom: 16px;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      .form-select {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #fff;
+        color: #333;
+      }
+      .medicine {
+        border: 1px solid #ddd;
+        margin: 10px;
+        padding: 15px;
+        text-align: center;
+        flex: 1 1 calc(33.33% - 20px);
+      }
+
+      .medicine img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+      }
+
+      button {
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .cart {
+        margin-top: 20px;
+        border: 1px solid #ddd;
+        padding: 15px;
+      }
+
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .quantity {
+        display: flex;
+        align-items: center;
+      }
+
+      .quantity button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 5px;
+      }
+
+      .quantity button:hover {
+        background-color: #45a049;
+      }
+      .confirmation-container {
+        text-align: center;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      h1 {
+        color: #4caf50;
+        margin-bottom: 20px;
+      }
+
+      p {
+        margin-bottom: 20px;
+      }
+
+      .animation-container {
+        display: inline-block;
+        position: relative;
+      }
+
+      .animation-text {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 24px;
+        color: #4caf50;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .pulse-animation {
+        animation: pulse 2s infinite;
+      }
+      .user-form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .form-button {
+        padding: 12px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .form-button:hover {
+        background-color: #45a049;
+      }
+
+      .result-container {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .result-title {
+        color: #333;
+      }
+
+      .result-info {
+        margin-bottom: 10px;
+        color: #555;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Your existing HTML content -->
+    <div id="get_started">
+      <div class="bg-container d-flex flex-column justify-content-end">
+        <div class="tourism-card">
+          <h1 class="main-heading">Medicine Drone Services</h1>
+          <p class="paragraph">Take your order in minutes.</p>
+          <button class="button" onclick="getStarted()">Get Started</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="user_information">
+      <form id="userForm" class="user-form">
+        <label for="username" class="form-label">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-input"
+          required
+        />
+
+        <label for="phoneNumber" class="form-label">Phone Number:</label>
+        <input
+          type="tel"
+          id="phoneNumber"
+          name="phoneNumber"
+          class="form-input"
+          required
+        />
+
+        <label for="email" class="form-label">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-input"
+          required
+        />
+
+        <p>
+          <span class="note">NOTE:</span> Before Clicking Get Current Location
+          go to the top of the building for safe landing of the drone.
+        </p>
+
+        <button type="button" onclick="getLocation()" class="form-button">
+          Get Current Location
+        </button>
+
+        <p id="locationInfo" class="result-info"></p>
+
+        <button type="button" onclick="userDetails()" class="form-button">
+          Submit
+        </button>
+      </form>
+
+      <div id="result" class="result-container"></div>
+    </div>
+
+    <div id="shop_details">
+      <input type="file" accept="image/*" capture="camera" id="captureInput" />
+      <button onclick="captureAndDisplay()">get Image</button>
+      <video
+        id="cameraPreview"
+        width="400"
+        height="300"
+        autoplay
+        class="text-center"
+      ></video>
+      <canvas
+        id="capturedCanvas"
+        width="400"
+        height="300"
+        style="display: none"
+        class="text-center"
+      ></canvas>
+
+      <header>
+        <h1>Medical Shops</h1>
+      </header>
+
+      <div class="form-container">
+        <label for="citySelect" class="form-label">Select City:</label>
+        <select id="citySelect" class="form-select" onchange="filterByCity()">
+          <option value="all">All Cities</option>
+          <option value="Bhimavaram">Bhimavaram</option>
+          <option value="Palakoderu">Palakoderu</option>
+          <!-- Add more cities as needed -->
+        </select>
+      </div>
+
+      <div class="section-container" id="medicalShopsSection">
+        <!-- Medical shops will be displayed here -->
+      </div>
+
+      <script>
+        const medicalShops = [
+          {
+            name: "Ramesh",
+            location: "Bhimavaram, AP",
+            details: "Details for Medical Shop 1",
+            shopLat: 16.258154121,
+            shopLong: 81.12302523,
+          },
+          {
+            name: "Suresh",
+            location: "Bhimavaram, AP",
+            details: "Details for Medical Shop 2",
+            shopLat: 21.258452025,
+            shopLong: 82.12365874512,
+          },
+          {
+            name: "Balu",
+            location: "Palakoderu, AP",
+            details: "Details for Medical Shop 3",
+            shopLat: 31.2582154205,
+            shopLong: 83.123984521,
+          },
+          // Add more medical shops with respective locations and details
+        ];
+
+        function renderMedicalShops(shops) {
+          const section = document.getElementById("medicalShopsSection");
+          section.innerHTML = "";
+
+          shops.forEach((shop, index) => {
+            const shopContainer = document.createElement("div");
+            shopContainer.className = "medical-shop";
+            shopContainer.innerHTML = `
+                        <h2 class="shop-title">${shop.name}</h2>
+                        <p>Location: ${shop.location}</p>
+                        <button class="shop-button" onclick="shop(${index})">Shop</button>
+                    `;
+            section.appendChild(shopContainer);
+          });
+        }
+
+        function filterByCity() {
+          const selectedCity = document.getElementById("citySelect").value;
+          let filteredShops;
+
+          if (selectedCity === "all") {
+            filteredShops = medicalShops;
+          } else {
+            filteredShops = medicalShops.filter((shop) =>
+              shop.location.toLowerCase().includes(selectedCity.toLowerCase())
+            );
+          }
+
+          renderMedicalShops(filteredShops);
+        }
+
+        // Initial rendering with all medical shops
+        renderMedicalShops(medicalShops);
+      </script>
+    </div>
+
+    <div id="order_details">
+      <header>
+        <h1>Medicine Shop</h1>
+      </header>
+
+      <section>
+        <div class="medicine" id="medicine1">
+          <img
+            src="https://res.cloudinary.com/dysg1afiz/image/upload/v1701879231/db676bfe52a54e85aec5733355fa7959_xhhsos.png"
+            alt="Medicine A"
+          />
+          <h2>Saridon</h2>
+          <p>
+            Description: Saridon tablets are used for severe headaches,
+            backaches, toothaches, muscles and joints ache including arthritis,
+            menstrual pain and ear pain....
+          </p>
+          <p>Price: ₹ 10.00</p>
+          <button onclick="addToCart('Saridon', 10.00)">Add to Cart</button>
+        </div>
+
+        <div class="medicine" id="medicine2">
+          <img
+            src="https://res.cloudinary.com/dysg1afiz/image/upload/v1701879373/dolo-6_h3ylun.jpg"
+            alt="Medicine B"
+          />
+          <h2>Dolo 650</h2>
+          <p>
+            Description: Dolo-650 tablet is a very common medicine and often
+            prescribed alone or with one or two medicine to relieve symptoms of
+            fever, nerve pain, and...
+          </p>
+          <p>Price: ₹ 15.00</p>
+          <button onclick="addToCart('Dolo 650', 15.00)">Add to Cart</button>
+        </div>
+
+        <!-- Add more medicine items as needed -->
+      </section>
+
+      <div class="cart" id="cart">
+        <h2>Shopping Cart</h2>
+        <ul id="cart-items">
+          <!-- Cart items will be displayed here -->
+        </ul>
+        <p>Total: ₹<span id="total">0.00</span></p>
+        <button onclick="buy()">Buy</button>
+      </div>
+
+      <script>
+        let cartItems = [];
+        let total = 0;
+
+        function addToCart(medicine, price) {
+          const existingItem = cartItems.find(
+            (item) => item.medicine === medicine
+          );
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            cartItems.push({
+              medicine,
+              price,
+              quantity: 1,
+            });
+          }
+          updateCart();
+        }
+
+        function removeFromCart(index) {
+          cartItems[index].quantity--;
+          if (cartItems[index].quantity === 0) {
+            cartItems.splice(index, 1);
+          }
+          updateCart();
+        }
+
+        function updateCart() {
+          const cartElement = document.getElementById("cart-items");
+          const totalElement = document.getElementById("total");
+          cartElement.innerHTML = "";
+          total = 0;
+
+          cartItems.forEach((item, index) => {
+            const li = document.createElement("li");
+            li.className = "cart-item";
+            li.innerHTML = `
+                        <div>${item.medicine} - ₹${item.price.toFixed(2)}</div>
+                        <div class="quantity">
+                            <button onclick="removeFromCart(${index})">-</button>
+                            ${item.quantity}
+                            <button onclick="addToCart('${item.medicine}', ${
+              item.price
+            })">+</button>
+                        </div>
+                    `;
+            cartElement.appendChild(li);
+            total += item.price * item.quantity;
+          });
+
+          totalElement.textContent = total.toFixed(2);
+          console.log(cartItems);
+        }
+      </script>
+    </div>
+
+    <div id="animationCard">
+      <div class="confirmation-container">
+        <h1>Your Order is Taken!</h1>
+        <p>Thank you for choosing our service. We are processing your order.</p>
+        <div class="animation-container">
+          <div class="pulse-animation">🚀</div>
+          <div class="animation-text">Processing</div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <!-- Firebase and other scripts -->
+  <!-- ... -->
+
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+  <!-- <script src="main.js"></script> -->
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBCpW4tsg3QwJLdo_rAEBh5WsSgdKkGDys",
+      authDomain: "sample-a028e.firebaseapp.com",
+      // databaseURL: "https://sample-a028e-default-rtdb.firebaseio.com",
+      projectId: "sample-a028e",
+      storageBucket: "sample-a028e.appspot.com",
+      messagingSenderId: "1026622472453",
+      appId: "1:1026622472453:web:955159f18b1936d5faf76c",
+      // measurementId: "G-DQ9LD03K0Y"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Set database variable
+    var database = firebase.database();
+
+    let getStart = document.getElementById("get_started");
+    let userInfo = document.getElementById("user_information");
+    let shopInfo = document.getElementById("shop_details");
+    let orderInfo = document.getElementById("order_details");
+    let animationEl = document.getElementById("animationCard");
+
+    let latitude;
+    let longitude;
+    let username;
+    let email;
+    let phone;
+    let shopname;
+    let shopdetails;
+    let shoplocation;
+    let shoplat;
+    let shoplong;
+
+    userInfo.style.display = "none";
+    shopInfo.style.display = "none";
+    orderInfo.style.display = "none";
+    animationEl.style.display = "none";
+
+    // Function to capture image
+    let video = document.getElementById("cameraPreview");
+    let capturedCanvas = document.getElementById("capturedCanvas");
+    let stream;
+
+    function captureAndDisplay() {
+      if (
+        "mediaDevices" in navigator &&
+        "getUserMedia" in navigator.mediaDevices
+      ) {
+        if (!stream) {
+          navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then((s) => {
+              stream = s;
+              video.srcObject = stream;
+            })
+            .catch((error) => {
+              console.error("Error accessing camera:", error);
+            });
+        }
+
+        const context = capturedCanvas.getContext("2d");
+        context.drawImage(
+          video,
+          0,
+          0,
+          capturedCanvas.width,
+          capturedCanvas.height
+        );
+        capturedCanvas.style.display = "block";
+      } else {
+        console.error("getUserMedia is not supported in this browser");
+      }
+    }
+    // Event listener for file input change
+    document
+      .getElementById("imageInput")
+      .addEventListener("change", handleImageSelect);
+
+    // Function to handle image selection
+    function handleImageSelect(event) {
+      var imageInput = event.target;
+      var files = imageInput.files;
+
+      if (files.length > 0) {
+        var selectedImage = files[0];
+
+        // Perform further processing with the selected image (e.g., upload to server)
+        console.log("Selected Image:", selectedImage);
+
+        // You can also display the selected image on the page if needed
+        displaySelectedImage(selectedImage);
+      }
+    }
+
+    // Function to display the selected image (optional)
+    function displaySelectedImage(image) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var imageElement = document.createElement("img");
+        imageElement.src = e.target.result;
+        imageElement.style.maxWidth = "50%";
+        document.body.appendChild(imageElement);
+      };
+      reader.readAsDataURL(image);
+    }
+
+    function getStarted() {
+      if (getStart.style.display === "block") {
+        getStart.style.display = "none";
+      } else {
+        getStart.style.display = "none";
+        userInfo.style.display = "block";
+      }
+    }
+
+    const locationInfo = document.getElementById("locationInfo");
+
+    function getLocation() {
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+
+            locationInfo.textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+          },
+          function (error) {
+            locationInfo.textContent = `Error getting location: ${error.message}`;
+          },
+          {
+            enableHighAccuracy: true,
+          }
+        );
+      } else {
+        locationInfo.textContent =
+          "Geolocation is not supported by your browser.";
+      }
+    }
+
+    function userDetails() {
+      username = document.getElementById("username").value;
+      phone = document.getElementById("phoneNumber").value;
+      email = document.getElementById("email").value;
+
+      //   database.ref(username + "/" + "userDetails").set({
+      //     email: email,
+      //     username: username,
+      //     phone: phone,
+      //     userLat: latitude,
+      //     userLong: longitude,
+      //   });
+
+      alert("User Details went");
+
+      const resultElement = document.getElementById("result");
+      resultElement.innerHTML = `
+        <h2>User Information</h2>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Username:</strong> ${username}</p>
+        <p><strong>Phone Number:</strong> ${phone}</p>
+        <button type="button" onclick = "showShopDetails()">Select Shop</button>
+    `;
+    }
+
+    function showShopDetails() {
+      userInfo.style.display = "none";
+      shopInfo.style.display = "block";
+      getStart.style.display = "none";
+    }
+
+    function shop(index) {
+      const selectedShop = medicalShops[index];
+
+      //   database.ref(username + "/" + "shopDetails").set({
+      //     ShopName: selectedShop.name,
+      //     Location: selectedShop.location,
+      //     Details: selectedShop.details,
+      //     shopLat: selectedShop.shopLat,
+      //     shopLong: selectedShop.shopLong,
+      //   });
+      shopname = selectedShop.name;
+      shoplocation = selectedShop.location;
+      shopdetails = selectedShop.details;
+      shoplat = selectedShop.shopLat;
+      shoplong = selectedShop.shopLong;
+
+      alert(
+        `Shop Name: ${selectedShop.name}\nLocation: ${selectedShop.location}\nDetails: ${selectedShop.details}`
+      );
+
+      shopInfo.style.display = "none";
+      orderInfo.style.display = "block";
+    }
+
+    function buy() {
+      alert(`Total Amount: ₹${total.toFixed(2)} - Order Placed!`);
+      // You can implement further actions, e.g., sending the order to a server, etc.
+      //cartItems = [];
+      //updateCart();
+      // console.log(cartItems)
+
+      database.ref(username + "/").set({
+        dronestatus: "Not Delivered",
+      });
+
+      database.ref(username + "/" + "userDetails").set({
+        email: email,
+        username: username,
+        phone: phone,
+        userLat: latitude,
+        userLong: longitude,
+      });
+
+      database.ref(username + "/" + "shopDetails").set({
+        ShopName: shopname,
+        Location: shoplocation,
+        Details: shopdetails,
+        shopLat: shoplat,
+        shopLong: shoplong,
+      });
+
+      database.ref(username + "/" + "orderDetails").set({
+        items: cartItems,
+      });
+
+      userInfo.style.display = "none";
+      shopInfo.style.display = "none";
+      getStart.style.display = "none";
+      orderInfo.style.display = "none";
+      animationEl.style.display = "block";
+    }
+  </script>
+</html>
